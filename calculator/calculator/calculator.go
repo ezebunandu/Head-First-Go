@@ -1,4 +1,4 @@
-package calculator
+package Calculator
 
 /*
 A simple calculator that performs one calculation
