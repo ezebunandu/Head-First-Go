@@ -20,6 +20,6 @@ func main() {
 		sum += number
 	}
 
-	samleCount := float64(len(arguments))
-	fmt.Printf("Average: %0.2f\n", sum/samleCount)
+	sampleCount := float64(len(arguments))
+	fmt.Printf("Average: %0.2f\n", sum/sampleCount)
 }
