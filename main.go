@@ -1,34 +1,25 @@
 package main
 
-import (
-	"fmt"
-	"head_first_go/calendar"
-	"log"
-)
+import "head_first_go/gadget"
+
+//define an interface type
+type Player interface {
+	Play(string) // require a Play method with a string parameter
+	Stop()       // Also require a stop method
+}
+
+func playList(device Player, songs []string) {
+	// playList accepts any Player, not just a TapePlayer
+	for _, song := range songs {
+		device.Play(song)
+	}
+	device.Stop()
+}
 
 func main() {
-	event := calendar.Event{}
-	err := event.SetTitle("An extremely long and impractical title")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = event.SetYear(2019)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = event.SetMonth(5)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = event.SetDay(27)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(event.Year())
-	fmt.Println(event.Month())
-	fmt.Println(event.Day())
+	mixtape := []string{"Jessie's Girl", "Whip It", "9 to 5"}
+	var player Player = gadget.TapePlayer{} // player variable holds any player
+	playList(player, mixtape)               // Pass a TapePlayer to playList
+	player = gadget.TapeRecorder{}
+	playList(player, mixtape) // Pass a TapeRecorder to playList
 }
