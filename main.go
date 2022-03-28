@@ -1,6 +1,8 @@
 package main
 
-import "head_first_go/gadget"
+import (
+	"head_first_go/gadget"
+)
 
 //define an interface type
 type Player interface {
@@ -19,10 +21,14 @@ func playList(device Player, songs []string) {
 func TryOut(player Player) {
 	player.Play("Test Track")
 	player.Stop()
-	recorder := player.(gadget.TapeRecorder) // type assertion to be able to use the Record method from the TapeRecorder
-	recorder.Record()
+	recorder, ok := player.(gadget.TapeRecorder)
+	// only call the Record() method if the type assertion is successful
+	if ok {
+		recorder.Record()
+	}
 }
 
 func main() {
 	TryOut(gadget.TapeRecorder{})
+	TryOut(gadget.TapePlayer{})
 }
