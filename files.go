@@ -6,6 +6,21 @@ import (
 	"path/filepath"
 )
 
+func reportPanic() {
+	p := recover()
+	// if recover returns nil, there is no panic, so we do nothing
+	if p == nil {
+		return
+	}
+	err, ok := p.(error)
+	if ok {
+		fmt.Println(err)
+	} else {
+		// If the panic is not an error, reinstate the panic
+		panic(err)
+	}
+}
+
 func scanDirectory(path string) { // error return value no longer needed
 	fmt.Println(path)
 	files, err := ioutil.ReadDir(path)
@@ -27,6 +42,7 @@ func scanDirectory(path string) { // error return value no longer needed
 }
 
 func main() {
+	defer reportPanic()
 	// no more need to store or check error return value
 	scanDirectory(".")
 }
