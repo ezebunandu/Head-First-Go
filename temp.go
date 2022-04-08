@@ -8,15 +8,15 @@ import (
 )
 
 func main() {
-	channel1 := make(chan int)
-	channel2 := make(chan int)
-	channel3 := make(chan int)
-	go responseSize("https://example.com", channel1)
-	fmt.Println(<-channel1)
-	go responseSize("https://golang.org/", channel2)
-	fmt.Println(<-channel2)
-	go responseSize("https://golang.org/doc", channel3)
-	fmt.Println(<-channel3)
+	sizes := make(chan int)
+	urls := []string{"https://example.com/",
+		"https://golang.org/", "https://golang.org/doc"}
+	for _, url := range urls {
+		go responseSize(url, sizes)
+	}
+	for i := 0; i < len(urls); i++ {
+		fmt.Println(<-sizes)
+	}
 }
 
 func responseSize(url string, channel chan int) {
