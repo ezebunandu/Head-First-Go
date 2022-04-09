@@ -1,36 +1,24 @@
 package prose
 
 import (
-	"fmt"
 	"testing"
 )
 
-func TestOneElement(t *testing.T) {
-	list := []string{"apple"}
-	expected := "apple"
-	output := JoinWithCommas(list)
-	if output != expected {
-		t.Error(errorString(list, output, expected))
-	}
-}
-func testtwoelements(t *testing.T) {
-	list := []string{"apple", "orange"}
-	expected := "apple and orange"
-	output := JoinWithCommas(list)
-	if output != expected {
-		t.Errorf(errorString(list, output, expected))
-	}
+type testData struct {
+	list     []string
+	expected string
 }
 
-func TestThreeElements(t *testing.T) {
-	list := []string{"apple", "orange", "pear"}
-	expected := "apple, orange, and pear"
-	output := JoinWithCommas(list)
-	if output != expected {
-		t.Errorf(errorString(list, output, expected))
+func TestJoinWithCommas(t *testing.T) {
+	tests := []testData{
+		{list: []string{"apple"}, expected: "apple"},
+		{list: []string{"apple", "orange"}, expected: "apple and orange"},
+		{list: []string{"apple", "orange", "pear"}, expected: "apple, orange, and pear"},
 	}
-}
-
-func errorString(list []string, output string, expected string) string {
-	return fmt.Sprintf("JoinWithCommas(%#v) = \"%s\", expected, \"%s\"", list, output, expected)
+	for _, testCase := range tests {
+		output := JoinWithCommas(testCase.list)
+		if output != testCase.expected {
+			t.Errorf("JoinWithCommas(%#v) = \"%s\", expected \"%s\"", testCase.list, output, testCase.expected)
+		}
+	}
 }
