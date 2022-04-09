@@ -4,14 +4,18 @@ import "testing"
 
 func TestTwoElements(t *testing.T) {
 	list := []string{"apple", "orange"}
-	if JoinWithCommas(list) != "apple and orange" {
-		t.Error("didn't match expected value")
+	expected := "apple and orange"
+	output := JoinWithCommas(list)
+	if output != expected {
+		t.Errorf("JoinWithCommas(%#v) = \"%s\", expected \"%s\"", list, output, expected)
 	}
 }
 
 func TestThreeElements(t *testing.T) {
 	list := []string{"apple", "orange", "pear"}
-	if JoinWithCommas(list) != "apple, orange, and pear" {
-		t.Error("didn't match expected value")
+	expected := "apple, orange, and pear"
+	output := JoinWithCommas(list)
+	if output != expected {
+		t.Errorf("JoinWithCommas(%#v) = \"%s\", expected \"%s\"", list, output, expected)
 	}
 }
