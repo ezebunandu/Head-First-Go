@@ -5,7 +5,15 @@ import (
 	"testing"
 )
 
-func TestTwoElements(t *testing.T) {
+func TestOneElement(t *testing.T) {
+	list := []string{"apple"}
+	expected := "apple"
+	output := JoinWithCommas(list)
+	if output != expected {
+		t.Error(errorString(list, output, expected))
+	}
+}
+func testtwoelements(t *testing.T) {
 	list := []string{"apple", "orange"}
 	expected := "apple and orange"
 	output := JoinWithCommas(list)
